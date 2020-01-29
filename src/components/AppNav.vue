@@ -6,11 +6,28 @@
     <router-link to="/dashboard">
       Dashboard
     </router-link>
+    <div class="buttonsGroup">
+      <router-link v-if="!loggedIn" to="/login" class="button">
+        Login
+      </router-link>
+      <router-link v-if="!loggedIn" to="/register" class="button">
+        Register
+      </router-link>
+      <router-link v-if="loggedIn" to="/logout" class="button">
+        Logout
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script>
-export default {}
+import { authComputed } from '../vuex/helpers.js'
+
+export default {
+  computed: {
+    ...authComputed
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -44,7 +61,6 @@ a {
 
 button,
 .button {
-  margin-left: auto;
   background: white;
   text-decoration: none;
   color: #2c3e50;
@@ -52,6 +68,11 @@ button,
   &.router-link-active {
     color: #2c3e50;
   }
+}
+
+.buttonsGroup {
+  display: flex;
+  margin-left: auto;
 }
 
 .logoutButton {
